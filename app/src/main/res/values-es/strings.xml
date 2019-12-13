@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name = "menu_Settings"> Configuración </string>
+    <string name = "menu_Fav"> Ciudad favorita </string>
+    <string name = "hum"> Humedad: </string>
+    <string name = "pressure"> Presión: </string>
+    <string name = "clouds"> Nubes: </string>
+    <string name = "wind_speed"> Velocidad del viento: </string>
+    <string name = "wind_way"> Camino del viento: </string>
+    <string name = "type_placeholder"> Escriba el nombre de la ciudad </string>
+    <string name = "type_units"> Unidades imperiales / métricas </string>
+    <string name = "dark_mode"> Modo oscuro </string>
+</resources>
