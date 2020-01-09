@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -55,19 +58,34 @@ public class MainActivity extends AppCompatActivity implements DayForeCastAdapte
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("APP LANGUAGE", Locale.getDefault().getDisplayLanguage());
 
         setLanguage(Locale.getDefault().getDisplayLanguage());
         db = CityDatabase.getInstance(this);
         fav = findViewById(R.id.mainFavortiteCityIcon);
 
-        Log.i("MAIN ACTIVITY", "ON CREATE");
+        /*
+        ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if(!(activeNetwork != null && activeNetwork.isConnectedOrConnecting())) {
+            Toast.makeText(this, R.string.connection, Toast.LENGTH_SHORT).show();
+        }*/
+
         if (sharedPref.loadPrefCity() == null)
             startActivity(new Intent(this, FavoriteCity.class));
         else if(getIntent().getStringExtra("cityName") != null)
             weatherService(getIntent().getStringExtra("cityName"), sharedPref.loadPrefUnits() == 1? "imperial" : "metric", sharedPref.loadPrefLang());
         else
             weatherService(sharedPref.loadPrefCity(), sharedPref.loadPrefUnits() == 1? "imperial" : "metric", sharedPref.loadPrefLang());
+    }
+
+    @Override
+    protected void onResume() {
+        sharedPref = SharedPref.getSharedPrefInstance(this);
+        if (sharedPref.loadPrefTheme() == 1)
+            setTheme(R.style.AppTheme);
+        else
+            setTheme(R.style.DarkTheme);
+        super.onResume();
     }
 
     private void setLanguage(String language) {
@@ -78,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements DayForeCastAdapte
                 sharedPref.savePrefLang("es");
             case "français":
                 sharedPref.savePrefLang("fr");
+
+                default:
+                    sharedPref.savePrefLang("en");
         }
     }
 
@@ -89,9 +110,15 @@ public class MainActivity extends AppCompatActivity implements DayForeCastAdapte
 
     @Override
     protected void onNewIntent(Intent intent) {
+        sharedPref = SharedPref.getSharedPrefInstance(this);
+        if (sharedPref.loadPrefTheme() == 1)
+            setTheme(R.style.AppTheme);
+        else
+            setTheme(R.style.DarkTheme);
         super.onNewIntent(intent);
         setIntent(intent);
         Log.i("MAIN ACTIVITY", "ON NEW INTENT");
+        list.removeAll(list);
         weatherService(intent.getStringExtra("cityName"), sharedPref.loadPrefUnits() == 1 ? "imperial" : "metric", sharedPref.loadPrefLang());
     }
 

@@ -12,6 +12,7 @@
     <string name="type_placeholder">Type city name</string>
     <string name="type_units">Units Imperial/Metric</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="connection">No network connection</string>
 
     <string-array name="languages_array">
         <item>Arabic</item>

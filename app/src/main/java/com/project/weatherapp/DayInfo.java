@@ -8,12 +8,11 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.project.weatherapp.other.SharedPref;
 
@@ -63,11 +62,10 @@ public class DayInfo extends AppCompatActivity {
         float i = 0;
 
         for (String s : list) {
-            barEntries.add(new Entry( i, Float.valueOf(s)));
+            barEntries.add(new Entry(i, Float.valueOf(s)));
             i+=3;
             Log.i("DATA", String.valueOf(i));
         }
-
 
         LineDataSet lineDataSet = new LineDataSet(barEntries, "Temperature");
         //lineDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
