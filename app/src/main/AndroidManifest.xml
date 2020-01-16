@@ -12,11 +12,18 @@
         android:roundIcon="@mipmap/sun_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DayInfo"></activity>
-        <activity android:name=".FavoriteCity"
-                  android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".chooseCityActivity"
+            android:theme="@style/TransparentBackground"/>
+        <activity android:name=".DayInfo" />
+        <activity
+            android:name=".FavoriteCity"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTop"/>
         <activity android:name=".Settings" />
-        <activity android:name=".MainActivity" android:launchMode="singleTask">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

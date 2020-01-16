@@ -31,6 +31,7 @@
                 android:ems="10"
                 android:hint="@string/type_placeholder"
                 android:inputType="textPersonName"
+                android:onClick="chooseCity"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

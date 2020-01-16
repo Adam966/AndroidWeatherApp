@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.project.weatherapp.adapter.FavoriteCityAdapter;
 import com.project.weatherapp.database.City;
 import com.project.weatherapp.database.CityDatabase;
@@ -29,6 +28,7 @@ public class FavoriteCity extends AppCompatActivity implements FavoriteCityAdapt
         Log.i("FAV ACTIVITY", "ON RESUME");
 
         setAdapter(getCityList());
+        editText.setText(getIntent().getStringExtra("cityName"));
         super.onResume();
     }
 
@@ -81,6 +81,13 @@ public class FavoriteCity extends AppCompatActivity implements FavoriteCityAdapt
         finish();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        editText.setText(intent.getStringExtra("cityName"));
+    }
+
     ////////////////////////////////////// SET ADAPTER /////////////////////////////////////////////
     private void setAdapter(ArrayList<City> list) {
         RecyclerView favCityAdapter = findViewById(R.id.favoriteCityList);
@@ -100,5 +107,9 @@ public class FavoriteCity extends AppCompatActivity implements FavoriteCityAdapt
         CityDatabase db = CityDatabase.getInstance(this);
         Log.i("EXIST CITY", String.valueOf(db.userDao().existCity(editText.getText().toString())));
         return db.userDao().existCity(editText.getText().toString());
+    }
+
+    public void chooseCity(View view) {
+        startActivity(new Intent(this, chooseCityActivity.class));
     }
 }
